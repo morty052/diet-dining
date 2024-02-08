@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import AppRoutes from "./routes/AppRoutes";
+import CartContextProvider from "./contexts/CartContext";
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ClerkProvider
+      publishableKey={"pk_test_c3RlYWR5LWNyb3ctNjIuY2xlcmsuYWNjb3VudHMuZGV2JA"}
+    >
+      <CartContextProvider>
+        {/* // @ts-ignore */}
+        <RootSiblingParent>
+          <NavigationContainer>
+            <AppRoutes />
+          </NavigationContainer>
+        </RootSiblingParent>
+      </CartContextProvider>
+    </ClerkProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
